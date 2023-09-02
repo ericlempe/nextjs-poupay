@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  relationMode  = "prisma"
+}
+
+model Providers {
+  id       Int       @id @default(autoincrement())
+  name    String 
+  users Users[]   
+}
+
+model Users {
+  id       Int       @id @default(autoincrement())
+  name    String
+  email  String
+  providerId    Int    @unique
+  user      Providers   @relation(fields: [providerId], references: [id])
+  categories Categories[]  
+  expenses Expenses[]  
+  incomes Incomes[]  
+  invoices Invoices[]  
+}
+
+model TypesExpenses {
+  id       Int       @id @default(autoincrement())
+  name    String
+  icon    String
+  incomes Incomes[] 
+  expenses Expenses[] 
+}
+
+model Categories {
+  id       Int       @id @default(autoincrement())
+  name    String
+  description    String
+  userId    Int    @unique
+  user      Users   @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  expenses Expenses[] 
+}
+
+model Attachments {
+  id       Int       @id @default(autoincrement())
+  hash    String
+  path    String
+  invoicesItems InvoicesItems[] 
+}
+
+model Expenses {
+  id       Int       @id @default(autoincrement())
+  title    String
+  description    String
+  dueDate    DateTime @default(now())
+  categoryId    Int    @unique
+  category      Categories   @relation(fields: [categoryId], references: [id])
+  typeExpenseId    Int    @unique
+  typeExpense      TypesExpenses   @relation(fields: [typeExpenseId], references: [id])
+  userId    Int    @unique
+  user      Users   @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  invoicesItems InvoicesItems[] 
+}
+
+model Incomes {
+  id       Int       @id @default(autoincrement())
+  title    String
+  payment_date    DateTime @default(now())
+  value Decimal @db.Decimal(18,2)
+  userId    Int    @unique
+  user      Users   @relation(fields: [userId], references: [id])
+  typeExpenseId    Int    @unique
+  typeExpense      TypesExpenses   @relation(fields: [typeExpenseId], references: [id])
+  createdAt DateTime @default(now())
+  invoicesItems InvoicesItems[] 
+}
+
+model Invoices {
+  id       Int       @id @default(autoincrement())
+  month    Int
+  year    Int
+  userId    Int    @unique
+  user      Users   @relation(fields: [userId], references: [id])
+  wasPaid  Boolean @default(false)
+  createdAt DateTime @default(now())
+  invoicesItems InvoicesItems[] 
+}
+
+model InvoicesItems {
+  id       Int       @id @default(autoincrement())
+  invoiceId    Int    @unique
+  invoice      Invoices   @relation(fields: [invoiceId], references: [id])
+  expenseId    Int?    @unique
+  expense      Expenses?   @relation(fields: [expenseId], references: [id])
+  incomeId    Int?    @unique
+  incomes      Incomes?   @relation(fields: [incomeId], references: [id])
+  value Decimal? @db.Decimal(18,2)
+  paymentDate    DateTime?    
+  attachmentId    Int?   @unique
+  attachment      Attachments?   @relation(fields: [attachmentId], references: [id])
+  created_at DateTime @default(now())
+}

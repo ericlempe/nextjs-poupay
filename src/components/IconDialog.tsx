@@ -1,5 +1,6 @@
 'use client'
-import { Button } from '@/components/ui/button'
+
+import { Button } from './ui/button'
 import {
   Sheet,
   SheetContent,
@@ -7,7 +8,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet'
+} from './ui/sheet'
 
 interface IconDialogProps {
   icon: React.ReactNode

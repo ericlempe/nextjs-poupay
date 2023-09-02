@@ -24,6 +24,11 @@ export default function InvoiceDetailsPage() {
 
   useEffect(() => {
     setIsLoading(true)
+
+    fetch('/api/expenses')
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+
     setTimeout(() => {
       const expenses1: Array<expenseProps> = [
         {
