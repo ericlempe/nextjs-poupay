@@ -1,6 +1,7 @@
 'use client'
-import React, { Component } from 'react'
+import React from 'react'
 import ReactApexChart from 'react-apexcharts'
+import { ApexOptions } from 'apexcharts'
 
 interface chartProps {
   values: Array<number>
@@ -62,76 +63,70 @@ const months: Array<monthsProps> = [
   },
 ]
 
-export default class PaymentYearChart extends Component<chartProps> {
-  constructor(props: chartProps) {
-    super(props)
+export default function PaymentYearChart(props: chartProps) {
+  function getMonthName(index: number): string {
+    const indexMonth = months.findIndex((row) => row.id === index + 1)
+    return indexMonth !== -1 ? months[indexMonth].name : ''
+  }
 
-    function getMonth(index: number) {
-      const indexMonth = months.findIndex((row) => row.id === index + 1)
-      return indexMonth !== -1 ? months[indexMonth] : ''
-    }
-
-    this.state = {
-      series: [
-        {
-          name: 'Net Profit',
-          data: props.values,
-        },
-      ],
-      options: {
-        chart: {
-          type: 'bar',
-          height: '100%',
-          toolbar: {
-            show: false,
-          },
-        },
-        tooltip: {
-          enabled: true,
-          custom: function ({ series, seriesIndex, dataPointIndex }) {
-            const monthLabel = getMonth(dataPointIndex)
-            return `<div class="flex flex-col space-y-2 bg-card items-center justify-center p-6 text-primary">
-                    <p class="text-sm font-medium leading-none">${monthLabel.name}</>
-                    <p class="text-sm text-muted-foreground">$${series[seriesIndex][dataPointIndex]}</>
-                </div>`
-          },
-        },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            columnWidth: '70%',
-            endingShape: 'rounded',
-          },
-        },
-        colors: ['#22c55e'],
-        dataLabels: {
-          enabled: false,
-        },
-        grid: {
-          show: false,
-        },
-        xaxis: {
-          labels: {
-            show: false,
-          },
-        },
-        yaxis: {
-          show: false,
-        },
+  const options: ApexOptions = {
+    series: [
+      {
+        name: 'Net Profit',
+        data: props.values,
       },
-    }
+    ],
+    chart: {
+      type: 'bar',
+      height: '100%',
+      toolbar: {
+        show: false,
+      },
+    },
+    tooltip: {
+      enabled: true,
+      custom: function ({ series, seriesIndex, dataPointIndex }) {
+        return `<div class="flex flex-col space-y-2 bg-card items-center justify-center p-6 text-primary">
+                <p class="text-sm font-medium leading-none">${getMonthName(
+                  dataPointIndex,
+                )}</>
+                <p class="text-sm text-muted-foreground">$${
+                  series[seriesIndex][dataPointIndex]
+                }</>
+            </div>`
+      },
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: '70%',
+        borderRadius: 3,
+      },
+    },
+    colors: ['#22c55e'],
+    dataLabels: {
+      enabled: false,
+    },
+    grid: {
+      show: false,
+    },
+    xaxis: {
+      labels: {
+        show: false,
+      },
+    },
+    yaxis: {
+      show: false,
+    },
   }
-
-  render() {
-    return (
-      <div id="chart" className="">
-        <ReactApexChart
-          options={this.state.options}
-          series={this.state.series}
-          type="bar"
-          height={'100%'}
-        />
-      </div>
-    )
-  }
+  return (
+    <div id="chart" className="">
+      <ReactApexChart
+        options={options}
+        series={options.series}
+        type="bar"
+        height={'100%'}
+      />
+    </div>
+  )
 }
