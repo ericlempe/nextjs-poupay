@@ -25,7 +25,7 @@ export default class ExpenseMonthChart extends Component<chartProps> {
           show: false,
           position: 'left',
           offsetX: -35,
-          formatter: function (val, opts) {
+          formatter: function (val: string) {
             return `<span class="text-xs text-muted-foreground">${val}</span>`
           },
         },
