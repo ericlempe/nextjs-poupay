@@ -1,7 +1,8 @@
 'use client'
 import React from 'react'
-import ReactApexChart from 'react-apexcharts'
 import { ApexOptions } from 'apexcharts'
+import dynamic from 'next/dynamic'
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface chartProps {
   total: number
@@ -76,12 +77,14 @@ export default function GoalChart(props: chartProps) {
 
   return (
     <div id="chart">
-      <ReactApexChart
-        options={options}
-        series={options.series}
-        type="radialBar"
-        height={300}
-      />
+      {typeof window !== 'undefined' && (
+        <ReactApexChart
+          options={options}
+          series={options.series}
+          type="radialBar"
+          height={300}
+        />
+      )}
     </div>
   )
 }

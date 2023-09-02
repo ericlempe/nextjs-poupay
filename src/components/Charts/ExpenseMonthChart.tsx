@@ -1,7 +1,8 @@
 'use client'
 import React from 'react'
-import ReactApexChart from 'react-apexcharts'
+import dynamic from 'next/dynamic'
 import { ApexOptions } from 'apexcharts'
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface chartProps {
   values: Array<number>
@@ -31,12 +32,14 @@ export default function ExpenseMonthChart(props: chartProps) {
 
   return (
     <div id="chart" className="">
-      <ReactApexChart
-        options={options}
-        series={options.series}
-        type="donut"
-        height={'100%'}
-      />
+      {typeof window !== 'undefined' && (
+        <ReactApexChart
+          options={options}
+          series={options.series}
+          type="donut"
+          height={'100%'}
+        />
+      )}
     </div>
   )
 }
