@@ -1,5 +1,7 @@
 'use client'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
@@ -8,20 +10,17 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { Button } from '@/components/ui/button'
-import { SheetClose } from '@/components/ui/sheet'
 import {
-  FaUtensils,
   FaBook,
-  FaShower,
-  FaFilm,
-  FaPills,
   FaBusSimple,
   FaComputer,
-  FaHouse,
   FaEllipsis,
+  FaFilm,
+  FaHouse,
+  FaPills,
+  FaShower,
+  FaUtensils,
 } from 'react-icons/fa6'
 
 interface iCategory {
@@ -105,9 +104,7 @@ export default function FormExpense() {
         </div>
         <Textarea rows={8} placeholder="Description.."></Textarea>
         <Button className="mt-6">Create</Button>
-        <SheetClose asChild>
-          <Button variant={'secondary'}>Cancel</Button>
-        </SheetClose>
+        <Button variant={'secondary'}>Cancel</Button>
       </div>
     </div>
   )

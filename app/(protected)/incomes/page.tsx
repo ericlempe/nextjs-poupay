@@ -1,9 +1,8 @@
 'use client'
-import { Input } from '@/components/ui/input'
-import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { SheetClose } from '@/components/ui/sheet'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
 
 export default function FormIncome() {
   return (
@@ -16,9 +15,7 @@ export default function FormIncome() {
           <Label htmlFor="airplane-mode">Fixed income?</Label>
         </div>
         <Button className="mt-6">Create</Button>
-        <SheetClose asChild>
-          <Button variant={'secondary'}>Cancel</Button>
-        </SheetClose>
+        <Button variant={'secondary'}>Cancel</Button>
       </div>
     </div>
   )

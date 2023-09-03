@@ -10,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { SheetClose } from '@/components/ui/sheet'
 
 export default function FormRegisterPayment() {
   return (
@@ -42,9 +41,7 @@ export default function FormRegisterPayment() {
       </div>
 
       <Button className="mt-6">Create</Button>
-      <SheetClose asChild>
-        <Button variant={'secondary'}>Cancel</Button>
-      </SheetClose>
+      <Button variant={'secondary'}>Cancel</Button>
     </div>
   )
 }

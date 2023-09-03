@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { SheetClose } from '@/components/ui/sheet'
 
 export default function FormRegisterIncome() {
   return (
@@ -10,9 +9,7 @@ export default function FormRegisterIncome() {
       <Input placeholder="Title" />
       <Input placeholder="Value" />
       <Button className="mt-6">Create</Button>
-      <SheetClose asChild>
-        <Button variant={'secondary'}>Cancel</Button>
-      </SheetClose>
+      <Button variant={'secondary'}>Cancel</Button>
     </div>
   )
 }

@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { SheetClose } from '@/components/ui/sheet'
 import { Textarea } from '@/components/ui/textarea'
 
 export default function FormCategory() {
@@ -11,9 +10,7 @@ export default function FormCategory() {
       <Input placeholder="Title" />
       <Textarea rows={8} placeholder="Description..."></Textarea>
       <Button className="mt-3">Create</Button>
-      <SheetClose asChild>
-        <Button variant={'secondary'}>Cancel</Button>
-      </SheetClose>
+      <Button variant={'secondary'}>Cancel</Button>
     </div>
   )
 }
