@@ -11,73 +11,9 @@ import {
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
-import {
-  FaBook,
-  FaBusSimple,
-  FaComputer,
-  FaEllipsis,
-  FaFilm,
-  FaHouse,
-  FaPills,
-  FaShower,
-  FaUtensils,
-} from 'react-icons/fa6'
-
-interface iCategory {
-  id: number
-  title: string
-  icon: React.ReactNode
-}
+import { icons } from 'lib/icons'
 
 export default function FormExpense() {
-  const categorias: Array<iCategory> = [
-    {
-      id: 1,
-      title: 'Alimentação',
-      icon: <FaUtensils />,
-    },
-    {
-      id: 2,
-      title: 'Estudo',
-      icon: <FaBook />,
-    },
-    {
-      id: 3,
-      title: 'Higiene',
-      icon: <FaShower />,
-    },
-    {
-      id: 4,
-      title: 'Lazer',
-      icon: <FaFilm />,
-    },
-    {
-      id: 5,
-      title: 'Médico',
-      icon: <FaPills />,
-    },
-    {
-      id: 6,
-      title: 'Moradia',
-      icon: <FaHouse />,
-    },
-    {
-      id: 7,
-      title: 'Transporte',
-      icon: <FaBusSimple />,
-    },
-    {
-      id: 8,
-      title: 'Profissional',
-      icon: <FaComputer />,
-    },
-    {
-      id: 9,
-      title: 'Outros',
-      icon: <FaEllipsis />,
-    },
-  ]
-
   return (
     <div className="grid grid-cols-1 gap-6 py-14">
       <div className="grid grid-cols-1 gap-6">
@@ -88,7 +24,7 @@ export default function FormExpense() {
             <SelectValue placeholder="Category" />
           </SelectTrigger>
           <SelectContent>
-            {categorias.map((item) => (
+            {icons.map((item) => (
               <SelectItem value={item.id.toString()} key={item.id}>
                 <span className="flex items-center gap-2">
                   {item.icon}

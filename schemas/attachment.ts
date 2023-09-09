@@ -5,3 +5,6 @@ export const attachments = pgTable('attachments', {
   hash: varchar('hash', { length: 256 }).notNull(),
   path: varchar('path', { length: 256 }).notNull(),
 })
+
+export type NewAttachment = typeof attachments.$inferInsert
+export type Attachment = typeof attachments.$inferSelect

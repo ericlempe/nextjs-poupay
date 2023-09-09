@@ -17,3 +17,6 @@ export const invoices = pgTable('invoices', {
   wasPaid: boolean('wasPaid').default(false).notNull(),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
 })
+
+export type NewInvoice = typeof invoices.$inferInsert
+export type Invoice = typeof invoices.$inferSelect

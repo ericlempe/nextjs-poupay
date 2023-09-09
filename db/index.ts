@@ -1,9 +1,11 @@
 import { neon, neonConfig } from '@neondatabase/serverless'
 import { drizzle } from 'drizzle-orm/neon-http'
+import { z } from 'zod'
 
 neonConfig.fetchConnectionCache = true
 
-const client = neon(process.env.DATABASE_URL ?? '')
-const db = drizzle(client)
+const databaseUrl = z.string().url().parse(process.env.DATABASE_URL)
 
-export default db
+const sql = neon(databaseUrl)
+
+export const db = drizzle(sql)

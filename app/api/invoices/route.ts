@@ -1,80 +1,32 @@
+import { db } from 'db'
 import { NextResponse } from 'next/server'
+import { invoices } from 'schemas/invoice'
 
 export async function GET() {
-  return NextResponse.json({
-    data: [
+  try {
+    const data = await db.select().from(invoices)
+    return NextResponse.json({ data })
+  } catch (error) {
+    return NextResponse.json(
       {
-        id: '1',
-        month: '1',
-        year: '2023',
-        userId: '1',
-        wasPaid: false,
-        createdAt: '2023-01-01',
+        message: error.message ?? 'Failed to listen invoices',
       },
+      { status: 400 },
+    )
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const payload = await request.json()
+    await db.insert(invoices).values(payload)
+    return NextResponse.json({ message: 'Invoice created with sucessfull!' })
+  } catch (error) {
+    return NextResponse.json(
       {
-        id: '2',
-        month: '2',
-        year: '2023',
-        userId: '1',
-        wasPaid: false,
-        createdAt: '2023-02-01',
+        message: error.message ?? 'Failed to create invoice',
       },
-      {
-        id: '3',
-        month: '3',
-        year: '2023',
-        userId: '1',
-        wasPaid: false,
-        createdAt: '2023-03-01',
-      },
-      {
-        id: '4',
-        month: '4',
-        year: '2023',
-        userId: '1',
-        wasPaid: false,
-        createdAt: '2023-04-01',
-      },
-      {
-        id: '5',
-        month: '5',
-        year: '2023',
-        userId: '1',
-        wasPaid: false,
-        createdAt: '2023-05-01',
-      },
-      {
-        id: '6',
-        month: '6',
-        year: '2023',
-        userId: '1',
-        wasPaid: false,
-        createdAt: '2023-05-01',
-      },
-      {
-        id: '7',
-        month: '7',
-        year: '2023',
-        userId: '1',
-        wasPaid: false,
-        createdAt: '2023-01-01',
-      },
-      {
-        id: '8',
-        month: '8',
-        year: '2023',
-        userId: '1',
-        wasPaid: false,
-        createdAt: '2023-07-01',
-      },
-      {
-        id: '9',
-        month: '9',
-        year: '2023',
-        userId: '1',
-        wasPaid: false,
-        createdAt: '2023-08-01',
-      },
-    ],
-  })
+      { status: 400 },
+    )
+  }
 }

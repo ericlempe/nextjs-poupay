@@ -25,3 +25,6 @@ export const expenses = pgTable('expenses', {
     .references(() => users.id),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
 })
+
+export type NewExpense = typeof expenses.$inferInsert
+export type Expense = typeof expenses.$inferSelect
